@@ -15,8 +15,8 @@ De ijsboer opent de PWA op zijn telefoon en drukt op **Start**. Zijn locatie ver
 
 | | URL |
 |---|---|
-| PWA voor ijsboer | [shansoul.github.io/Ijsboer-tracker](https://shansoul.github.io/Ijsboer-tracker/) |
-| Kaart demo | [shansoul.github.io/Ijsboer-tracker/kaart-demo.html](https://shansoul.github.io/Ijsboer-tracker/kaart-demo.html) |
+| PWA voor ijsboer | [shansoul.github.io/ijsboer-tracker](https://shansoul.github.io/ijsboer-tracker/) |
+| Kaart demo | [shansoul.github.io/ijsboer-tracker/kaart-demo.html](https://shansoul.github.io/ijsboer-tracker/kaart-demo.html) |
 | Backend API | [ijsboer-tracker-production.up.railway.app](https://ijsboer-tracker-production.up.railway.app/api/location) |
 
 ## Voor het webteam
