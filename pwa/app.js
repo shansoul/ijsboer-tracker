@@ -67,9 +67,13 @@ function stuurLocatie(pos) {
   coordsEl.textContent = `${latitude.toFixed(5)}, ${longitude.toFixed(5)}`;
 
   const url = `${API_URL}?lat=${latitude}&lng=${longitude}`;
-  fetch(url, { method: "POST" }).catch(() => {
-    statusEl.textContent = "Verbindingsfout — volgende poging over 30s.";
-  });
+  fetch(url, { method: "POST", signal: AbortSignal.timeout(8000) })
+    .then(() => {
+      statusEl.textContent = "Rit actief — laat dit scherm open.";
+    })
+    .catch(() => {
+      statusEl.textContent = "Signaal even weg — volgende poging over 30s.";
+    });
 }
 
 function onGpsError(err) {
