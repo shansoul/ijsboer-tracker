@@ -39,8 +39,6 @@ def generate_pdf(input_md: str, output_pdf: str, bedrijfsnaam: str = "", project
 
     html_body = post_process(html_body)
 
-    footer_links = " · ".join(filter(None, [bedrijfsnaam, projectnaam]))
-
     html = f"""<!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -51,15 +49,16 @@ def generate_pdf(input_md: str, output_pdf: str, bedrijfsnaam: str = "", project
     size: A4;
     margin: 2.8cm 2.5cm 3cm 2.5cm;
 
-    @top-left {{
-      content: "{bedrijfsnaam}";
+    @top-center {{
+      content: "{projectnaam}";
       font-family: Arial, Helvetica, sans-serif;
       font-size: 7.5pt;
       color: #aab4be;
       padding-top: 0.8cm;
+      text-align: center;
     }}
     @bottom-left {{
-      content: "{footer_links}";
+      content: "{bedrijfsnaam}";
       font-family: Arial, Helvetica, sans-serif;
       font-size: 7.5pt;
       color: #aab4be;
