@@ -67,11 +67,15 @@ function stuurLocatie(pos) {
   coordsEl.textContent = `${latitude.toFixed(5)}, ${longitude.toFixed(5)}`;
 
   const url = `${API_URL}?lat=${latitude}&lng=${longitude}`;
-  fetch(url, { method: "POST", signal: AbortSignal.timeout(8000) })
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 8000);
+  fetch(url, { method: "POST", signal: controller.signal })
     .then(() => {
+      clearTimeout(timeoutId);
       statusEl.textContent = "Rit actief — laat dit scherm open.";
     })
     .catch(() => {
+      clearTimeout(timeoutId);
       statusEl.textContent = "Signaal even weg — volgende poging over 30s.";
     });
 }
