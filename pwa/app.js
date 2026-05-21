@@ -3,6 +3,7 @@ const INTERVAL_MS = 30000;
 
 let actief = false;
 let intervalId = null;
+let wakeLock = null;
 
 const btn = document.getElementById("toggle-btn");
 const statusEl = document.getElementById("status");
@@ -22,14 +23,18 @@ function start() {
     return;
   }
 
+  statusEl.textContent = "GPS ophalen…";
+
   navigator.geolocation.getCurrentPosition(
-    (pos) => {
+    async (pos) => {
       actief = true;
       btn.textContent = "Stop";
       btn.classList.add("actief");
-      statusEl.textContent = "Rit actief — locatie wordt gedeeld.";
+      statusEl.textContent = "Rit actief — laat dit scherm open.";
 
+      await requestWakeLock();
       stuurLocatie(pos);
+
       intervalId = setInterval(() => {
         navigator.geolocation.getCurrentPosition(stuurLocatie, onGpsError, {
           enableHighAccuracy: true,
@@ -40,14 +45,14 @@ function start() {
     onGpsError,
     { enableHighAccuracy: true, timeout: 15000 }
   );
-
-  statusEl.textContent = "GPS ophalen…";
 }
 
 function stop() {
   actief = false;
   clearInterval(intervalId);
   intervalId = null;
+
+  releaseWakeLock();
 
   btn.textContent = "Start";
   btn.classList.remove("actief");
@@ -70,3 +75,31 @@ function stuurLocatie(pos) {
 function onGpsError(err) {
   statusEl.textContent = "GPS niet beschikbaar: " + err.message;
 }
+
+async function requestWakeLock() {
+  if ("wakeLock" in navigator) {
+    try {
+      wakeLock = await navigator.wakeLock.request("screen");
+    } catch (_) {
+      // Niet beschikbaar of geweigerd — geen actie nodig
+    }
+  }
+}
+
+function releaseWakeLock() {
+  if (wakeLock) {
+    wakeLock.release();
+    wakeLock = null;
+  }
+}
+
+// Wanneer de ijsboer terugkomt naar Safari: wake lock hervragen + direct locatie sturen
+document.addEventListener("visibilitychange", async () => {
+  if (!document.hidden && actief) {
+    await requestWakeLock();
+    navigator.geolocation.getCurrentPosition(stuurLocatie, onGpsError, {
+      enableHighAccuracy: true,
+      timeout: 10000,
+    });
+  }
+});
