@@ -4,7 +4,7 @@ Plak het onderstaande HTML-snippet op de plek waar de kaart moet verschijnen.
 
 ## Wat je moet aanpassen
 
-1. **`setView([52.3676, 4.9041], 15)`** → vervang de coördinaten met de wijk van de ijsboer
+1. **`setView([51.8103, 5.7238], 12)`** → coördinaten zijn al ingesteld op Wijchen (zoom 12 toont de hele gemeente)
 
 ## HTML Snippet
 
@@ -17,7 +17,7 @@ Plak het onderstaande HTML-snippet op de plek waar de kaart moet verschijnen.
 const API_URL = "https://ijsboer-tracker-production.up.railway.app/api/location";
 const POLL_INTERVAL = 30000;
 
-const map = L.map("ijsboer-map").setView([52.3676, 4.9041], 15); // ← coördinaten aanpassen
+const map = L.map("ijsboer-map").setView([51.8103, 5.7238], 12); // Wijchen
 
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   attribution: "© OpenStreetMap contributors"
