@@ -90,8 +90,8 @@ def generate_pdf(input_md: str, output_pdf: str, bedrijfsnaam: str = "", project
   .cover-section {{
     background: #0d2e4f;
     color: #ffffff;
-    margin: -2.8cm -2.5cm 2.8cm -2.5cm;
-    padding: 3.5cm 2.5cm 2.5cm 2.5cm;
+    margin: -2.8cm -2.5cm 1.2cm -2.5cm;
+    padding: 3cm 2.5cm 2cm 2.5cm;
     page-break-after: avoid;
   }}
 
@@ -277,6 +277,12 @@ def generate_pdf(input_md: str, output_pdf: str, bedrijfsnaam: str = "", project
   }}
 
   /* ── Paginabreuk ── */
+  .new-page {{
+    page-break-before: always;
+    margin: 0;
+    height: 0;
+  }}
+
   table, pre, blockquote {{
     page-break-inside: avoid;
   }}

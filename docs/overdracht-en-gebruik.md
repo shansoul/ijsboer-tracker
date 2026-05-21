@@ -30,6 +30,8 @@ De ontwikkelaar verleent geen verdere garanties op werking of onderhoud na overd
 
 ---
 
+<div class="new-page"></div>
+
 ## Deel 1: Voor de ijsboer — Railway account aanmaken
 
 De tracker draait op een server die Railway heet. Die moet op jouw naam komen te staan.
