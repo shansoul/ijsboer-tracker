@@ -2,6 +2,28 @@
 
 ---
 
+## Formele overdrachtsverklaring
+
+**Opdrachtgever:** Tijsse Klasen, handelend onder de naam IJs van Tijs / Tijsse Klasen Foodtrucks
+
+**Ontwikkelaar:** Shan Brunel
+
+**Onderwerp:** Overdracht van de IJsboer Tracker — een live GPS-volgsysteem bestaande uit een webapplicatie (PWA), een backend API en een kaartintegratie voor de website ijsvantijs.nl.
+
+**Verklaring:**
+
+Shan Brunel heeft de IJsboer Tracker in opdracht van Tijsse Klasen ontwikkeld en draagt hierbij alle rechten op het systeem over aan Tijsse Klasen. Na voltooiing van de technische overdracht zoals beschreven in Deel 1 van dit document is Tijsse Klasen de enige eigenaar van het systeem, inclusief de broncode, de bijbehorende infrastructuur en alle toekomstige aanpassingen daaraan.
+
+De ontwikkelaar verleent geen verdere garanties op werking of onderhoud na overdracht, tenzij hier aanvullende afspraken over worden gemaakt.
+
+**Datum overdracht:** \_\_\_\_\_\_\_\_\_\_\_\_
+
+**Handtekening opdrachtgever:** \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+**Handtekening ontwikkelaar:** \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+---
+
 ## Deel 1: Voor de ijsboer — Railway account aanmaken
 
 De tracker draait op een server die Railway heet. Die moet op jouw naam komen te staan.
@@ -24,9 +46,9 @@ Dit is nodig zodat de server nooit automatisch stopt.
 4. Klik op **"Upgrade to Hobby Plan"**
 5. Vul je creditcard- of PayPal-gegevens in en bevestig
 
-### Stap 3: Geef je Railway e-mailadres door
+### Stap 3: Stuur je Railway e-mailadres door
 
-Stuur het e-mailadres waarmee je je hebt aangemeld bij Railway door aan je contactpersoon (de ontwikkelaar). Die zorgt voor de overdracht van de tracker naar jouw account.
+Stuur een e-mail naar **Shan Brunel (shanbrunel@gmail.com)** met het e-mailadres waarmee je je hebt aangemeld bij Railway. Shan zorgt voor de overdracht van de tracker naar jouw account.
 
 ### Stap 4: Uitnodiging accepteren
 
@@ -38,7 +60,7 @@ Dat is alles. De tracker draait nu op jouw account en de kosten lopen via jou.
 
 ---
 
-## Deel 2: Voor de webman — drie aanpassingen op de website
+## Deel 2: Voor Jorrit — drie aanpassingen op de website
 
 Er zijn drie dingen die op de website van de ijsboer moeten worden aangepast.
 
@@ -105,7 +127,7 @@ iconUrl: "https://ijsvantijs.nl/tracker-app/Ijsbus.png"
 
 ---
 
-## Deel 3: Gebruiksinstructie — elke zaterdag
+## Deel 3: Gebruiksinstructie — elke rit
 
 ### Wat de ijsboer doet
 
@@ -143,11 +165,11 @@ Klanten gaan naar **ijsvantijs.nl/ijstracker/** en zien:
 
 | Wat je ziet | Wat er aan de hand is | Wat je doet |
 |---|---|---|
-| Kaart toont vraagteken in plaats van ijsbus | Icoontje laadt niet | Webman controleren of `Ijsbus.png` correct geüpload is |
+| Kaart toont vraagteken in plaats van ijsbus | Icoontje laadt niet | Jorrit controleren of `Ijsbus.png` correct geüpload is |
 | Pin beweegt niet meer | Safari is op de achtergrond gezet | App opnieuw openen en op Start drukken |
 | "Locatie tijdelijk niet beschikbaar" | Server even niet bereikbaar | Wacht 1 minuut en ververs de pagina |
 | Safari vraagt niet om locatie | Locatie is eerder geweigerd | Instellingen → Privacy → Locatievoorzieningen → Safari → "Tijdens gebruik" |
-| Kaart staat op Amsterdam | Webman heeft aanpassing 2 nog niet gedaan | Webman inschakelen |
+| Kaart staat op Amsterdam | Jorrit heeft aanpassing 2 nog niet gedaan | Jorrit inschakelen |
 
 ---
 
@@ -156,6 +178,32 @@ Klanten gaan naar **ijsvantijs.nl/ijstracker/** en zien:
 | Onderdeel | Wat het is | Wie beheert het |
 |---|---|---|
 | **Railway** | De server die de locatie bijhoudt | IJsboer (eigen account, $5/mnd) |
-| **Start/Stop knop** | Pagina op ijsvantijs.nl | Webman |
-| **Kaart op website** | Pagina op ijsvantijs.nl/ijstracker/ | Webman |
-| **Tracker-code** | GitHub (technisch beheer) | Ontwikkelaar |
+| **Start/Stop knop** | Pagina op ijsvantijs.nl | Jorrit |
+| **Kaart op website** | Pagina op ijsvantijs.nl/ijstracker/ | Jorrit |
+| **Tracker-code** | GitHub (technisch beheer) | Shan Brunel |
+
+---
+
+## Overwegingen ter verbetering
+
+Het systeem is volledig werkend. Onderstaande punten zijn optionele verbeteringen voor de toekomst — niets hiervan is verplicht.
+
+### 1. Scherper ijsbus-icoontje
+
+Het huidige icoontje van de ijsbus is geknipt uit een screenshot en daardoor wat onscherp, met ruwe randen. Het werkt prima, maar een schoner icoontje geeft een professionelere uitstraling op de kaart.
+
+**Optie A:** Een transparante PNG maken van het bestaande logo van IJs van Tijs — Jorrit of een grafisch ontwerper kan dit in een paar minuten doen via een achtergrond-verwijder tool (bijv. remove.bg).
+
+**Optie B:** Een eenvoudig icoon laten tekenen of een bestaand SVG-icoon van een ijswagen gebruiken.
+
+Het nieuwe icoontje vervangt simpelweg het huidige `Ijsbus.png` bestand op de server — er hoeft verder niets aan de code te worden aangepast.
+
+### 2. Melding op de hoofdpagina als de bus rijdt
+
+Wanneer de ijsboer zijn rit heeft gestart, weten klanten op de website niet automatisch dat hij onderweg is — tenzij ze zelf naar de tracker-pagina navigeren.
+
+Een kleine toevoeging op de hoofdpagina van ijsvantijs.nl zou dit oplossen: een banner of knop die alleen zichtbaar is zolang de ijsboer actief is, met een tekst als:
+
+> *"De bus rijdt nu! Klik hier om te zien waar hij is."*
+
+Dit is een aanpassing voor Jorrit. De logica is eenvoudig: dezelfde API die de kaart gebruikt (`/api/location`) geeft ook aan of de ijsboer actief is (`is_active: true/false`). Op basis daarvan kan de banner automatisch aan- en uitgeschakeld worden.
