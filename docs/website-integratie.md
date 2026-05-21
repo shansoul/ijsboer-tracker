@@ -24,7 +24,7 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 }).addTo(map);
 
 const ijsbusIcon = L.icon({
-  iconUrl: "https://shansoul.github.io/ijsboer-tracker/Ijsbus.png",
+  iconUrl: "https://shansoul.github.io/Ijsboer-tracker/Ijsbus.png",
   iconSize: [116, 66],
   iconAnchor: [58, 66]
 });
