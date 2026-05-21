@@ -1,0 +1,5 @@
+# Gegenereerde bestanden
+*.zip
+*.pdf
+__pycache__/
+*.pyc
