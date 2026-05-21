@@ -75,6 +75,7 @@ def generate_pdf(input_md: str, output_pdf: str, bedrijfsnaam: str = "", project
   @page :first {{
     margin-top: 0;
     @top-left {{ content: ""; }}
+    @top-center {{ content: ""; }}
   }}
 
   /* ── Basis ── */
