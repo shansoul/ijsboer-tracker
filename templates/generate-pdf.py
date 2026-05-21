@@ -4,19 +4,31 @@ PDF generator voor klantoverdracht-documenten.
 
 Gebruik:
     python3 generate-pdf.py input.md output.pdf
-    python3 generate-pdf.py input.md output.pdf --bedrijf "Jouw Bedrijfsnaam"
+    python3 generate-pdf.py input.md output.pdf --bedrijf "Shan Brunel Consulting" --projectnaam "IJsboer Tracker"
 
 Vereisten:
     pip install weasyprint markdown
 """
 
-import sys
+import re
 import argparse
 import markdown
 from weasyprint import HTML
-from datetime import date
 
-def generate_pdf(input_md: str, output_pdf: str, bedrijfsnaam: str = ""):
+
+def post_process(html: str) -> str:
+    # Wrap alles vóór de eerste <hr> in een cover-sectie
+    parts = html.split('<hr />', 1)
+    if len(parts) == 2:
+        html = f'<div class="cover-section">{parts[0]}</div><hr />{parts[1]}'
+
+    # Vervang aaneengesloten underscores door een gestileerde handtekeninglijn
+    html = re.sub(r'_{4,}', '<span class="sig-line"></span>', html)
+
+    return html
+
+
+def generate_pdf(input_md: str, output_pdf: str, bedrijfsnaam: str = "", projectnaam: str = ""):
     with open(input_md, "r", encoding="utf-8") as f:
         md_content = f.read()
 
@@ -25,103 +37,143 @@ def generate_pdf(input_md: str, output_pdf: str, bedrijfsnaam: str = ""):
         extensions=["tables", "fenced_code", "nl2br"]
     )
 
-    footer_bedrijf = f"{bedrijfsnaam} · " if bedrijfsnaam else ""
+    html_body = post_process(html_body)
+
+    footer_links = " · ".join(filter(None, [bedrijfsnaam, projectnaam]))
 
     html = f"""<!DOCTYPE html>
 <html lang="nl">
 <head>
 <meta charset="UTF-8">
 <style>
-  /* ── Pagina-instellingen ── */
+  /* ── Pagina-layout ── */
   @page {{
     size: A4;
     margin: 2.8cm 2.5cm 3cm 2.5cm;
+
     @top-left {{
       content: "{bedrijfsnaam}";
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-      font-size: 8pt;
-      color: #aaa;
-      margin-top: 1cm;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 7.5pt;
+      color: #aab4be;
+      padding-top: 0.8cm;
     }}
     @bottom-left {{
-      content: "{footer_bedrijf}" attr(data-title);
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-      font-size: 8pt;
-      color: #aaa;
+      content: "{footer_links}";
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 7.5pt;
+      color: #aab4be;
     }}
     @bottom-right {{
       content: "Pagina " counter(page) " van " counter(pages);
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-      font-size: 8pt;
-      color: #aaa;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 7.5pt;
+      color: #aab4be;
     }}
   }}
 
   @page :first {{
-    margin-top: 4cm;
+    margin-top: 0;
     @top-left {{ content: ""; }}
   }}
 
-  /* ── Basisstijl ── */
+  /* ── Basis ── */
   body {{
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 10.5pt;
     line-height: 1.65;
     color: #1c1c1e;
+    margin: 0;
   }}
 
-  /* ── Titels ── */
-  h1 {{
-    font-size: 22pt;
+  /* ── Coverpagina ── */
+  .cover-section {{
+    background: #0d2e4f;
+    color: #ffffff;
+    margin: -2.8cm -2.5cm 2.8cm -2.5cm;
+    padding: 3.5cm 2.5cm 2.5cm 2.5cm;
+    page-break-after: avoid;
+  }}
+
+  .cover-section h1 {{
+    font-size: 26pt;
     font-weight: 700;
-    color: #0d2e4f;
-    margin: 0 0 4px 0;
-    line-height: 1.2;
+    color: #ffffff;
+    margin: 0 0 6px 0;
+    line-height: 1.15;
   }}
 
-  h1 + h2 {{
+  .cover-section h2 {{
     font-size: 13pt;
     font-weight: 400;
-    color: #3a6e9e;
+    color: #7fb3d6;
     border: none;
-    margin: 0 0 32px 0;
+    margin: 0 0 2.2cm 0;
     padding: 0;
   }}
 
+  .cover-section p {{
+    background: rgba(255,255,255,0.08);
+    border-left: 3px solid #3a8fd1;
+    padding: 14px 18px;
+    margin: 0;
+    font-size: 10pt;
+    line-height: 2;
+    border-radius: 0 4px 4px 0;
+  }}
+
+  .cover-section p strong {{
+    color: #7fb3d6;
+    font-weight: 600;
+    display: inline-block;
+    min-width: 100px;
+  }}
+
+  /* ── Sectietitels met automatische nummering ── */
+  body {{
+    counter-reset: sectie;
+  }}
+
   h2 {{
+    counter-increment: sectie;
     font-size: 13pt;
     font-weight: 700;
     color: #0d2e4f;
     border-bottom: 1.5px solid #c8dff0;
     padding-bottom: 5px;
-    margin-top: 36px;
-    margin-bottom: 12px;
+    margin-top: 40px;
+    margin-bottom: 14px;
+    page-break-after: avoid;
+  }}
+
+  h2::before {{
+    content: counter(sectie) ". ";
+    color: #3a8fd1;
+    font-weight: 700;
+  }}
+
+  /* Bijlages geen counter-nummering */
+  h2[data-bijlage]::before {{
+    content: "";
   }}
 
   h3 {{
-    font-size: 11pt;
-    font-weight: 600;
+    font-size: 10.5pt;
+    font-weight: 700;
     color: #1a4f7a;
-    margin-top: 22px;
-    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-top: 24px;
+    margin-bottom: 8px;
+    page-break-after: avoid;
   }}
 
-  /* ── Metadata-blok na de hoofdtitel ── */
-  h1 ~ p:first-of-type {{
-    font-size: 9.5pt;
-    color: #666;
-    line-height: 1.8;
-    margin-bottom: 4px;
-  }}
-
-  /* ── Horizontale lijn ── */
   hr {{
     border: none;
     border-top: 1px solid #dde8f2;
     margin: 28px 0;
   }}
 
-  /* ── Alinea's ── */
   p {{
     margin: 0 0 10px 0;
   }}
@@ -130,23 +182,24 @@ def generate_pdf(input_md: str, output_pdf: str, bedrijfsnaam: str = ""):
   table {{
     width: 100%;
     border-collapse: collapse;
-    margin: 14px 0 20px 0;
+    margin: 14px 0 22px 0;
     font-size: 9.5pt;
     page-break-inside: avoid;
   }}
 
   th {{
-    background: #0d2e4f;
+    background: #1a4f7a;
     color: #ffffff;
-    padding: 7px 11px;
+    padding: 8px 12px;
     text-align: left;
-    font-weight: 600;
-    font-size: 9pt;
-    letter-spacing: 0.02em;
+    font-weight: 700;
+    font-size: 8.5pt;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
   }}
 
   td {{
-    padding: 7px 11px;
+    padding: 8px 12px;
     border-bottom: 1px solid #e4eef6;
     vertical-align: top;
   }}
@@ -167,14 +220,14 @@ def generate_pdf(input_md: str, output_pdf: str, bedrijfsnaam: str = ""):
 
   pre {{
     background: #f0f5fa;
-    border-left: 3px solid #0d2e4f;
+    border-left: 4px solid #1a4f7a;
     padding: 12px 16px;
-    border-radius: 0 5px 5px 0;
     font-family: "Courier New", Courier, monospace;
     font-size: 9pt;
     white-space: pre-wrap;
     margin: 14px 0;
     page-break-inside: avoid;
+    border-radius: 0 4px 4px 0;
   }}
 
   pre code {{
@@ -183,14 +236,14 @@ def generate_pdf(input_md: str, output_pdf: str, bedrijfsnaam: str = ""):
     color: inherit;
   }}
 
-  /* ── Blockquote (notities / waarschuwingen) ── */
+  /* ── Notities / waarschuwingen ── */
   blockquote {{
-    border-left: 3px solid #3a8fd1;
-    margin: 14px 0;
-    padding: 8px 14px;
-    color: #3a4a5a;
-    background: #eef6fd;
-    border-radius: 0 5px 5px 0;
+    border-left: 3px solid #e8a020;
+    margin: 16px 0;
+    padding: 10px 16px;
+    color: #4a3a10;
+    background: #fef8ec;
+    border-radius: 0 4px 4px 0;
     font-size: 9.5pt;
   }}
 
@@ -201,24 +254,24 @@ def generate_pdf(input_md: str, output_pdf: str, bedrijfsnaam: str = ""):
   /* ── Lijsten ── */
   ul, ol {{
     padding-left: 22px;
-    margin: 6px 0 12px 0;
+    margin: 6px 0 14px 0;
   }}
 
   li {{
-    margin: 4px 0;
-    line-height: 1.55;
+    margin: 5px 0;
+    line-height: 1.6;
   }}
 
-  /* ── Handtekeningregels ── */
-  p:has(> strong:first-child) {{
-    margin-top: 16px;
+  /* ── Handtekeninglijnen ── */
+  .sig-line {{
+    display: inline-block;
+    width: 220px;
+    border-bottom: 1px solid #1c1c1e;
+    margin: 0 6px;
+    vertical-align: middle;
   }}
 
-  /* ── Paginabreuk-hints ── */
-  h2 {{
-    page-break-after: avoid;
-  }}
-
+  /* ── Paginabreuk ── */
   table, pre, blockquote {{
     page-break-inside: avoid;
   }}
@@ -235,9 +288,10 @@ def generate_pdf(input_md: str, output_pdf: str, bedrijfsnaam: str = ""):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Genereer PDF van een markdown overdrachtstemplate")
-    parser.add_argument("input", help="Pad naar het markdown-bestand (bijv. overdracht.md)")
-    parser.add_argument("output", help="Pad voor de uitvoer-PDF (bijv. overdracht.pdf)")
-    parser.add_argument("--bedrijf", default="", help="Jouw bedrijfsnaam voor in de header/footer")
+    parser.add_argument("input", help="Pad naar het markdown-bestand")
+    parser.add_argument("output", help="Pad voor de uitvoer-PDF")
+    parser.add_argument("--bedrijf", default="", help="Jouw bedrijfsnaam voor in de header")
+    parser.add_argument("--projectnaam", default="", help="Projectnaam voor in de footer")
     args = parser.parse_args()
 
-    generate_pdf(args.input, args.output, args.bedrijf)
+    generate_pdf(args.input, args.output, args.bedrijf, args.projectnaam)
