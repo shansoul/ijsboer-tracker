@@ -43,6 +43,7 @@ def generate_pdf(input_md: str, output_pdf: str, bedrijfsnaam: str = "", project
 <html lang="nl">
 <head>
 <meta charset="UTF-8">
+<title>{projectnaam}</title>
 <style>
   /* ── Pagina-layout ── */
   @page {{
