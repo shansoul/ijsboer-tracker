@@ -109,6 +109,11 @@ def generate_pdf(input_md: str, output_pdf: str, bedrijfsnaam: str = "", project
     border: none;
     margin: 0 0 2.2cm 0;
     padding: 0;
+    counter-increment: none;
+  }}
+
+  .cover-section h2::before {{
+    content: "";
   }}
 
   .cover-section p {{

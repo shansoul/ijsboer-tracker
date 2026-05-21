@@ -1,4 +1,10 @@
-# IJsboer Tracker — Overdracht en gebruikshandleiding
+# IJsboer Tracker
+## Overdracht- en gebruikshandleiding
+
+**Klant:** Tijsse Klasen — IJs van Tijs / Tijsse Klasen Foodtrucks
+**Consultant:** Shan Brunel
+**Datum:** 21 mei 2026
+**Versie:** 1.0
 
 ---
 
