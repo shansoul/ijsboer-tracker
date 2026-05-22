@@ -8,6 +8,30 @@
 
 ---
 
+## Formele overdrachtsverklaring
+
+**Opdrachtgever:** {{KLANT_VOLLEDIG_NAAM}}, handelend onder de naam {{KLANTNAAM}}
+
+**Opdrachtnemer:** {{CONSULTANT_VOLLEDIG_NAAM}}
+
+**Onderwerp:** Overdracht van {{PROJECTNAAM}} — {{JURIDISCHE_OMSCHRIJVING_KORT}}
+
+**Verklaring:**
+
+{{CONSULTANT_NAAM}} heeft {{PROJECTNAAM}} in opdracht van {{KLANTNAAM}} ontwikkeld en draagt hierbij alle rechten op het systeem over aan {{KLANTNAAM}}. Na voltooiing van de technische overdracht zoals beschreven in dit document is {{KLANTNAAM}} de enige eigenaar van het systeem, inclusief de broncode, de bijbehorende infrastructuur en alle toekomstige aanpassingen daaraan.
+
+De opdrachtnemer verleent geen verdere garanties op werking of onderhoud na overdracht, tenzij hier aanvullende afspraken over worden gemaakt.
+
+**Datum overdracht:** \_\_\_\_\_\_\_\_\_\_\_\_
+
+**Handtekening opdrachtgever:** \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+**Handtekening opdrachtnemer:** \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+---
+
+<div class="new-page"></div>
+
 ## 1. Samenvatting
 
 {{KLANTNAAM}} vroeg om {{PROBLEEMSTELLING_EEN_ZIN}}.
@@ -90,6 +114,8 @@ U hoeft geen technische aanpassingen te maken. Het systeem werkt automatisch. Vo
 
 ---
 
+<div class="new-page"></div>
+
 ## 5. Eigendomsoverdracht
 
 **Opdrachtgever:** {{KLANT_VOLLEDIG_NAAM}}, {{KLANT_ADRES}}, KvK-nummer {{KLANT_KVK}}
@@ -160,7 +186,9 @@ Ondergetekenden verklaren dat het systeem {{PROJECTNAAM}} op {{OPLEVERDATUM}} is
 
 ---
 
-## Bijlage A — Technische details *(optioneel)*
+<div class="new-page"></div>
+
+<h2 data-bijlage>Bijlage A — Technische details <em>(optioneel)</em></h2>
 
 *Alleen relevant voor een technisch opvolger of developer die verder bouwt.*
 
@@ -171,6 +199,6 @@ Ondergetekenden verklaren dat het systeem {{PROJECTNAAM}} op {{OPLEVERDATUM}} is
 
 ---
 
-## Bijlage B — Overwegingen voor de toekomst *(optioneel)*
+<h2 data-bijlage>Bijlage B — Overwegingen voor de toekomst <em>(optioneel)</em></h2>
 
 {{TOEKOMST_OVERWEGINGEN}}
