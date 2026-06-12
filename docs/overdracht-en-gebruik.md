@@ -192,6 +192,18 @@ Klanten gaan naar **ijsvantijs.nl/ijstracker/** en zien:
 
 ---
 
+## Persoonsgegevens en AVG
+
+De tracker verwerkt uitsluitend de **actuele GPS-positie van de ijsboer tijdens een rit** — geen
+klantgegevens en geen rithistorie. De positie staat alleen tijdelijk in het werkgeheugen van de
+server en verdwijnt bij een herstart; er wordt niets blijvend opgeslagen.
+
+De volledige verantwoording — welke gegevens, op welke grondslag, waarom ze nodig zijn
+(dataminimalisatie) en hoe lang ze bewaard worden — staat in het **Data Governance Werkblad**
+(`docs/data-governance.md`), dat onderdeel is van dit overdrachtsdossier.
+
+---
+
 ## Overwegingen ter verbetering
 
 Het systeem is volledig werkend. Onderstaande punten zijn optionele verbeteringen voor de toekomst — niets hiervan is verplicht.
