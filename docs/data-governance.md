@@ -7,16 +7,16 @@
 **Datum:** 12 juni 2026
 **Versie:** 1.0
 
+---
+
 > Dit document beschrijft welke (persoons)gegevens de IJsboer Tracker verwerkt, waarom, op welke
 > grondslag en hoe lang. Het maakt deel uit van het overdrachtsdossier.
 
----
+## Databronnen
 
-## 1. Databronnen
-
-| DATABRON | EIGENAAR | TYPE GEGEVENS | PERSOONSGEGEVENS? | VERWERKINGSBASIS (AVG) | DOEL & NOODZAAK |
-|---|---|---|---|---|---|
-| Live GPS-positie ijsboer | Tijsse Klasen | `lat`, `lng` (coördinaten), `updated_at` (tijdstip), `is_active` (rijdt ja/nee) | Ja — locatie van een identificeerbare persoon (de bestuurder) | Gerechtvaardigd belang (eigen bedrijfsvoering); de betrokkene is tevens verwerkingsverantwoordelijke en deelt zijn positie actief via de Start/Stop-knop | Klanten op de website kunnen zien waar de ijsbus nu rijdt. Alleen de huidige positie is nodig; er wordt bewust niets méér verzameld (geen naam, gedrag, identiteit van klanten of historie). |
+| DATABRON | EIGENAAR | TYPE GEGEVENS | PERSOONSGEGEVENS? | VERWERKINGSBASIS (AVG) |
+|---|---|---|---|---|
+| Live GPS-positie ijsboer | Tijsse Klasen | `lat`, `lng` (coördinaten), `updated_at` (tijdstip), `is_active` (rijdt ja/nee) | Ja — locatie van een identificeerbare persoon (de bestuurder) | Gerechtvaardigd belang (eigen bedrijfsvoering); de betrokkene is tevens verwerkingsverantwoordelijke en deelt zijn positie actief via de Start/Stop-knop |
 
 *Verwerkingsbasis: Toestemming · Overeenkomst · Wettelijke verplichting · Gerechtvaardigd belang*
 
@@ -30,7 +30,7 @@
 
 ---
 
-## 2. Datakwaliteit
+## Datakwaliteit
 
 | DATABRON | VOLLEDIGHEID | ACTUALITEIT | NAUWKEURIGHEID | OPMERKING |
 |---|---|---|---|---|
@@ -43,7 +43,7 @@
 
 ---
 
-## 3. Data-eigenaarschap
+## Data-eigenaarschap
 
 | ROL | NAAM | VERANTWOORDELIJKHEID |
 |---|---|---|
@@ -57,7 +57,7 @@
 
 ---
 
-## 4. Opslag en beveiliging
+## Opslag en beveiliging
 
 | ASPECT | BESCHRIJVING |
 |---|---|
@@ -70,7 +70,7 @@
 
 ---
 
-## 5. Verversing en updates
+## Verversing en updates
 
 | ASPECT | BESCHRIJVING |
 |---|---|
@@ -80,7 +80,7 @@
 
 ---
 
-## 6. Bekende risico's
+## Bekende risico's
 
 | RISICO | ERNST | MAATREGEL |
 |---|---|---|
@@ -90,7 +90,7 @@
 
 ---
 
-## 7. Vooruitblik Fase 2 — let op
+## Vooruitblik Fase 2 — let op
 
 Zodra Fase 2 wordt gebouwd (voorspelde aankomsttijd op basis van gelogde GPS-traces), **verandert dit
 profiel wezenlijk**: er komt dan wél persistente opslag van rithistorie in een database. Op dat moment
@@ -104,7 +104,7 @@ Dit werkblad moet bij de start van Fase 2 worden herzien.
 
 ---
 
-## 8. Akkoordverklaring
+## Akkoordverklaring
 
 Opdrachtgever bevestigt dat bovenstaande beschrijving correct is en dat de genoemde verwerkingsgronden van toepassing zijn.
 
